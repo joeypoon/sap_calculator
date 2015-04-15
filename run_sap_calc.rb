@@ -8,5 +8,5 @@ while action == "1"
   student.check_sap
 
   puts "\nEnter 1 for new calculation or any other key to exit: "
-  aciton = gets.chomp
+  action = gets.chomp
 end
