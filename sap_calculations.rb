@@ -1,48 +1,38 @@
 require_relative "validations"
+require_relative "phrs_calculation"
+#require_relative "gpa_calculation"
 
 class SapCalculations
 
   include Validations
+  include PhrsCalculation
+  #include GpaCalculation
 
-  def get_earned_credits
-    begin
-      puts "Please enter earned credits: "
-      @earned_credits = gets.chomp
-    end until is_float? @earned_credits
-    @earned_credits = @earned_credits.to_f
+  def initialize
+    @phrs_status = false
+    @gpa_status = false
   end
 
-  def get_attempted_credits
-    begin
-      puts "Please enter attempted credits: "
-      @attempted_credits = gets.chomp
-    end until is_float? @attempted_credits
-    @attempted_credits = @attempted_credits.to_f
-  end
-
-  def calculate_completion_percentage
-    @completion_percentage = @earned_credits / @attempted_credits
-    return @completion_percentage
-  end
-
-  def in_compliance_phrs? #phrs = percentage hours
-    if calculate_completion_percentage < @minimum_completion
-      return false
-    else
-      return true
-    end
-  end
-
-  def calculate_minimum_credits
-    @minimum_credits = ((@minimum_completion * @attempted_credits) - @earned_credits) / (1 - @minimum_completion)
-    @minimum_credits = (@minimum_credits + 1).to_i #round up to nearest int
-    return @minimum_credits
+  def check_sap
+    check_phrs
+    #check_gpa
   end
 
   private
 
-  def initialize
-    @minimum_completion = 0.725 #Minimum completion percentage required
+  def check_phrs
+    get_earned_credits
+    get_attempted_credits
+    set_phrs_status
+    if @phrs_status == true
+      puts "\nStudent needs " + calculate_minimum_credits.to_s + " credits to reach the minimum completion percentage."
+    else
+      puts "\nStudent is meeting completion percentage requirements."
+    end
   end
+
+  #def check_gpa
+
+  #end
 
 end
