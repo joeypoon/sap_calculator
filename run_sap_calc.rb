@@ -10,7 +10,11 @@ while action == "1"
   puts
   student.get_attempted_credits
   puts
-  puts "Student needs " + student.calculate_minimum_credits.to_s + " credits to reach compliance."
+  if !student.in_compliance_phrs?
+    puts "Student needs " + student.calculate_minimum_credits.to_s + " credits to reach compliance."
+  else
+    puts "Student is in compliance."
+  end
   puts
 
   puts "Enter 1 for new calculation or any other key to exit: "

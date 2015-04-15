@@ -1,6 +1,8 @@
 module Validations
 
-    def Validations.is_int? input
+  private
+
+  def is_int? input
     if (Integer(input) rescue nil) != input.to_i
       return false
     else
@@ -8,7 +10,7 @@ module Validations
     end
   end
 
-  def Validations.is_float? input
+  def is_float? input
     if (Float(input) rescue nil) != input.to_f
       return false
     else
