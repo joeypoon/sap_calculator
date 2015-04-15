@@ -31,8 +31,15 @@ class SapCalculations
     end
   end
 
-  #def check_gpa
-
-  #end
+  def check_gpa
+    get_institutional_credits
+    get_institutional_gpa
+    set_gpa_status
+    if @gpa_status == true
+      puts "\nStudent needs " + calculate_b_needed.to_s + " credits at all Bs or " + calculate_a_needed.to_s + " credits at all As."
+    else
+      puts "\nStudent is meeting GPA requirements."
+    end
+  end
 
 end
